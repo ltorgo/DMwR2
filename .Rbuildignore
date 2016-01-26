@@ -1,0 +1,5 @@
+^.*tar.gz$
+README.md
+tests.R
+todo.txt
+

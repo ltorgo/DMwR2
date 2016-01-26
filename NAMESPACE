@@ -1,0 +1,67 @@
+##importFrom(abind,abind) 
+##import(rpart)
+import(methods)
+importFrom(rpart,rpart,prune.rpart)
+##import(xts)
+importFrom(xts,as.xts,xts)
+##import(quantmod)
+importFrom(quantmod,newTA,Delt,candleChart)
+importFrom(zoo,as.zoo,zoo,coredata,index)
+importFrom(class,knn)
+##import(ROCR)
+
+
+
+exportClasses(
+    tradeRecord
+            )
+
+exportMethods(show)
+exportMethods(summary)
+exportMethods(plot)
+
+export(
+       
+       # kNN.R file
+       kNN,
+       
+       # OR.R file
+       outliers.ranking,
+       
+       # selfTraining.R file
+       SelfTrain,
+       
+       # LOF.R file
+       lofactor,
+       
+       # trading.R file
+       trading.simulator,
+       sigs.PR,
+       trading.signals,
+       tradingEvaluation,
+#       .addEq,.Eq,
+#       .addSt,.St,
+       
+       # trees.R file
+       rpartXse,
+       rt.prune,
+
+       # utils.R file
+       centralValue,
+       resp,
+       manyNAs,
+       centralImputation,
+       knnImputation,
+       unscale,
+       SoftMax,
+       LinearScaling,
+       ReScaling,
+
+       # classes.R file (the class constructors need to be exported)
+       tradeRecord
+       )
+
+
+
+#S3method(plot,tradeRecord)
+#S3method(summary,tradeRecord)
