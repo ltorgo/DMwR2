@@ -10,15 +10,16 @@
 # Luis Torgo, Jan 2009
 # =====================================================
 centralValue <- function(x, ws=NULL) {
-   if (is.numeric(x)) {
-     if (is.null(ws)) median(x,na.rm=T)
-     else if ((s <- sum(ws)) > 0) sum(x*(ws/s)) else NA
-   } else {
-     x <- as.factor(x)
-     if (is.null(ws)) levels(x)[which.max(table(x))]
-     else levels(x)[which.max(aggregate(ws,list(x),sum)[,2])]
-   }
- }
+    x <- unlist(x)  # because of dplyr structures not dropping (errors with dat[,i])
+    if (is.numeric(x)) {
+        if (is.null(ws)) median(x,na.rm=T)
+        else if ((s <- sum(ws)) > 0) sum(x*(ws/s)) else NA
+    } else {
+        x <- as.factor(x)
+        if (is.null(ws)) levels(x)[which.max(table(x))]
+        else levels(x)[which.max(aggregate(ws,list(x),sum)[,2])]
+    }
+}
 
 
 # =====================================================
@@ -76,60 +77,62 @@ centralImputation <- function(data) {
 # =====================================================
 # Luis Torgo, Mar 2009, Nov 2011
 # =====================================================
-knnImputation <- function(data,k=10,scale=T,meth='weighAvg',distData=NULL) {
+knnImputation <- function(data,k=10,scale=TRUE,meth='weighAvg',distData=NULL) {
 
-  n <- nrow(data)  
-  if (!is.null(distData)) {
-    distInit <- n+1
-    data <- rbind(data,distData)
-  } else distInit <- 1
-  N <- nrow(data)
-
-  ncol <- ncol(data)
-  nomAttrs <- rep(F,ncol)
-  for(i in seq(ncol)) nomAttrs[i] <- is.factor(data[,i])
-  nomAttrs <- which(nomAttrs)
-  hasNom <- length(nomAttrs)
-  contAttrs <- setdiff(seq(ncol),nomAttrs)
-
-  dm <- data
-  if (scale) dm[,contAttrs] <- scale(dm[,contAttrs])
-  if (hasNom)
-    for(i in nomAttrs) dm[,i] <- as.integer(dm[,i])
-
-  dm <- as.matrix(dm)
-
-  nas <- which(!complete.cases(dm))
-  if (!is.null(distData)) tgt.nas <- nas[nas <= n]
-  else tgt.nas <- nas
-
-  if (length(tgt.nas) == 0)
-    warning("No case has missing values. Stopping as there is nothing to do.")
-
-  xcomplete <- dm[setdiff(distInit:N,nas),]
-  if (nrow(xcomplete) < k)
-    stop("Not sufficient complete cases for computing neighbors.")
-  
-  for (i in tgt.nas) {
-
-    tgtAs <- which(is.na(dm[i,]))
+    n <- nrow(data)  
+    if (!is.null(distData)) {
+        distInit <- n+1
+        data <- rbind(data,distData)
+    } else distInit <- 1
+    N <- nrow(data)
     
-    dist <- scale(xcomplete,dm[i,],FALSE)
+    ncol <- ncol(data)
+    ##nomAttrs <- rep(F,ncol)
+    ##for(i in seq(ncol)) nomAttrs[i] <- is.factor(data[,i])
+    ##nomAttrs <- which(nomAttrs)
+    ##contAttrs <- setdiff(seq(ncol),nomAttrs)
+    contAttrs <- which(vapply(data,dplyr::type_sum,character(1)) %in% c("dbl","int"))
+    nomAttrs <- setdiff(seq.int(ncol),contAttrs)
+    hasNom <- length(nomAttrs)
+
+    dm <- data
+    if (scale) dm[,contAttrs] <- scale(dm[,contAttrs])
+    if (hasNom)
+        for(i in nomAttrs) dm[[i]] <- as.integer(dm[[i]])
     
-    xnom <- setdiff(nomAttrs,tgtAs)
-    if (length(xnom)) dist[,xnom] <-ifelse(dist[,xnom]>0,1,dist[,xnom])
-
-    dist <- dist[,-tgtAs]
-    dist <- sqrt(drop(dist^2 %*% rep(1,ncol(dist))))
-    ks <- order(dist)[seq(k)]
-    for(j in tgtAs)
-      if (meth == 'median')
-        data[i,j] <- centralValue(data[setdiff(distInit:N,nas),j][ks])
-      else 
-        data[i,j] <- centralValue(data[setdiff(distInit:N,nas),j][ks],exp(-dist[ks]))
-  }
-
-  data[1:n,]
+    dm <- as.matrix(dm)
+    
+    nas <- which(!complete.cases(dm))
+    if (!is.null(distData)) tgt.nas <- nas[nas <= n]
+    else tgt.nas <- nas
+    
+    if (length(tgt.nas) == 0)
+        warning("No case has missing values. Stopping as there is nothing to do.")
+    
+    xcomplete <- dm[setdiff(distInit:N,nas),]
+    if (nrow(xcomplete) < k)
+        stop("Not sufficient complete cases for computing neighbors.")
+    
+    for (i in tgt.nas) {
+        
+        tgtAs <- which(is.na(dm[i,]))
+        
+        dist <- scale(xcomplete,dm[i,],FALSE)
+        
+        xnom <- setdiff(nomAttrs,tgtAs)
+        if (length(xnom)) dist[,xnom] <-ifelse(dist[,xnom]>0,1,dist[,xnom])
+        
+        dist <- dist[,-tgtAs]
+        dist <- sqrt(drop(dist^2 %*% rep(1,ncol(dist))))
+        ks <- order(dist)[seq(k)]
+        for(j in tgtAs)
+            if (meth == 'median')
+                data[i,j] <- centralValue(data[setdiff(distInit:N,nas)[ks],j])
+            else 
+                data[i,j] <- centralValue(data[setdiff(distInit:N,nas)[ks],j],exp(-dist[ks]))
+    }
+    
+    data[1:n,]
 }
 
 

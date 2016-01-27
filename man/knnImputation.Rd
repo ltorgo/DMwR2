@@ -14,7 +14,7 @@ If meth='median' it uses the median/most frequent value,
 instead.
 }
 \usage{
-knnImputation(data, k = 10, scale = T, meth = "weighAvg",
+knnImputation(data, k = 10, scale = TRUE, meth = "weighAvg",
               distData = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
