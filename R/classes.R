@@ -61,7 +61,7 @@ setMethod("plot", "tradeRecord",
   function(x,y,verbose=TRUE,...) {
   
       market <- cbind(y,zoo::coredata(x@trading)[,c('Equity','N.Stocks')])
-      xts::candleChart(market,
+      quantmod::candleChart(market,
                   TA=c(.addEq(),.addSt()),
                   ...)
       if (verbose)
