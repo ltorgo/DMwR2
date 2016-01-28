@@ -85,7 +85,7 @@ trading.simulator <- function(market,
     
     trading <- matrix(0,nrow=N.days,ncol=5)
     colnames(trading) <- c('Close','Order','Money','N.Stocks','Equity')
-    trading[,'Close'] <- market$Close
+    trading[,'Close'] <- Cl(market)
     trading[1,'Money'] <- init.cap
 
     .maxPos <- N.days %/% 2
@@ -222,7 +222,7 @@ trading.simulator <- function(market,
 
       # Update our current Equity
       trading[d,'Equity'] <- trading[d,'Money'] +
-        trading[d,'N.Stocks']*market[d,'Close']
+        trading[d,'N.Stocks']*Cl(market)[d]
       
     }
 
