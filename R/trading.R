@@ -130,7 +130,7 @@ trading.simulator <- function(market,
           # - opening a position
           if (pending.orders[i,'action'] == 'open') {
             idP <- open.position(pending.orders[i,'order'],
-                                market[d,'Open'],
+                                Op(market)[d],
                                 pending.orders[i,'val'])
             # associate the respective limit and stop with this opened position
             pending.orders[pending.orders$ID==pending.orders[i,'ID'],
@@ -138,7 +138,7 @@ trading.simulator <- function(market,
             
           # - closing a position  
           } else { 
-            close.position(pending.orders[i,'posID'],market[d,'Open'])
+            close.position(pending.orders[i,'posID'],Op(market)[d])
             # closed positions
             closed <- c(closed,pending.orders[i,'posID'])
           }
@@ -157,14 +157,14 @@ trading.simulator <- function(market,
               if (pending.orders[i,'order.type'] == 2) {
 
                 if (pending.orders[i,'order'] == 1) { # it's a buy to close a short
-                  if (market[d,'Low'] < pending.orders[i,'val']) {
+                  if (Lo(market)[d] < pending.orders[i,'val']) {
                     close.position(pending.orders[i,'posID'],
                                    pending.orders[i,'val'])
                     done <- c(done,which(pending.orders$posID == pending.orders[i,'posID']))
                   }
                   
                 } else { # it's a sell to close a long
-                  if (market[d,'High'] > pending.orders[i,'val']) {
+                  if (Hi(market)[d] > pending.orders[i,'val']) {
                     close.position(pending.orders[i,'posID'],
                                    pending.orders[i,'val'])
                     done <- c(done,which(pending.orders$posID == pending.orders[i,'posID']))
@@ -175,13 +175,13 @@ trading.simulator <- function(market,
               } else if (pending.orders[i,'order.type'] == 3) {
 
                 if (pending.orders[i,'order'] == 1) { # it's a buy to close a short
-                  if (market[d,'High'] > pending.orders[i,'val']) {
+                  if (Hi(market)[d] > pending.orders[i,'val']) {
                     close.position(pending.orders[i,'posID'],
                                    pending.orders[i,'val'])
                     done <- c(done,which(pending.orders$posID == pending.orders[i,'posID']))
                   }
                 } else { # it's a sell to close a long
-                  if (market[d,'Low'] < pending.orders[i,'val']) {
+                  if (Lo(market)[d] < pending.orders[i,'val']) {
                     close.position(pending.orders[i,'posID'],
                                    pending.orders[i,'val'])
                     done <- c(done,which(pending.orders$posID == pending.orders[i,'posID']))
