@@ -34,7 +34,7 @@ Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
 \code{\link{knnImputation}}, \code{\link{centralValue}}, \code{\link{complete.cases}}, \code{\link{na.omit}}
 }
 \examples{
-data(algae)
+data(algae,package="DMwR2")
 cleanAlgae <- centralImputation(algae)
 summary(cleanAlgae)
 }

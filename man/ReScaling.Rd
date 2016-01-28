@@ -57,8 +57,9 @@ Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
 \code{\link{scale}}, \code{\link{SoftMax}}, \code{\link{LinearScaling}}
 }
 \examples{
-## A simple example with the algae data set
-summary(LinearScaling(algae[,'NO3']))
-summary(ReScaling(LinearScaling(algae[,'NO3']),-10,10))
+## A simple example with the iris data set
+data(iris)
+summary(LinearScaling(iris[["Petal.Length"]]))
+summary(ReScaling(LinearScaling(iris[["Petal.Length"]]),-10,10))
 }
 \keyword{models}
