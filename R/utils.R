@@ -226,15 +226,15 @@ ReScaling <- function(x,t.mn,t.mx,d.mn=min(x,na.rm=T),d.mx=max(x,na.rm=T)) {
 # s <- regr.eval(tr,ps,train.y=data[,'Y'])
 # s <- regr.eval(tr,ps,stats=c('mse','mae'))
 #
-regr.eval <- function(trues,preds,
+regrEval <- function(trues,preds,
                       stats=if (is.null(train.y)) c('mae','mse','rmse','mape') else c('mae','mse','rmse','mape','nmse','nmae'),
                       train.y=NULL)
 {
   allSs <- c('mae','mse','rmse','mape','nmse','nmae')
   if (any(c('nmse','nmad') %in% stats) && is.null(train.y))
-    stop('regr.eval:: train.y parameter not specified.',call.=F)
+    stop('regrEval:: train.y parameter not specified.',call.=F)
   if (!all(stats %in% allSs))
-    stop("regr.eval:: don't know how to calculate -> ",call.=F,
+    stop("regrEval:: don't know how to calculate -> ",call.=F,
          paste(stats[which(!(stats %in% allSs))],collapse=','))
   N <- length(trues)
   sae <- sum(abs(trues-preds))
