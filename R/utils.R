@@ -215,3 +215,31 @@ ReScaling <- function(x,t.mn,t.mx,d.mn=min(x,na.rm=T),d.mx=max(x,na.rm=T)) {
   sc*x + t.mn - sc*d.mn
 }
 
+
+
+# =====================================================================
+# Function to calculate some standard regression evaluation statistics
+# ---------------------------------------------------------------------
+# L. Torgo (2009)
+#
+# Examples:
+# s <- regr.eval(tr,ps,train.y=data[,'Y'])
+# s <- regr.eval(tr,ps,stats=c('mse','mae'))
+#
+regr.eval <- function(trues,preds,
+                      stats=if (is.null(train.y)) c('mae','mse','rmse','mape') else c('mae','mse','rmse','mape','nmse','nmae'),
+                      train.y=NULL)
+{
+  allSs <- c('mae','mse','rmse','mape','nmse','nmae')
+  if (any(c('nmse','nmad') %in% stats) && is.null(train.y))
+    stop('regr.eval:: train.y parameter not specified.',call.=F)
+  if (!all(stats %in% allSs))
+    stop("regr.eval:: don't know how to calculate -> ",call.=F,
+         paste(stats[which(!(stats %in% allSs))],collapse=','))
+  N <- length(trues)
+  sae <- sum(abs(trues-preds))
+  sse <- sum((trues-preds)^2)
+  r <- c(mae=sae/N,mse=sse/N,rmse=sqrt(sse/N),mape=sum(abs((trues-preds)/trues))/N)
+  if (!is.null(train.y)) r <- c(r,c(nmse=sse/sum((trues-mean(train.y))^2),nmae=sae/sum(abs(trues-mean(train.y)))))
+  return(r[stats])
+}
