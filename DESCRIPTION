@@ -6,7 +6,7 @@ Description: Functions and data accompanying the second
              studies" by Luis Torgo, published by CRC Press
 Version: 0.0.1
 Depends: R(>= 3.0), methods
-Imports: ggplot2 (>= 0.9.3), xts (>= 0.9-7), zoo (>= 1.7-10), class (>= 7.3-14), rpart (>= 4.1-10), quantmod (>= 0.4-5), dplyr (>= 0.4.3)
+Imports: xts (>= 0.9-7), zoo (>= 1.7-10), class (>= 7.3-14), rpart (>= 4.1-10), quantmod (>= 0.4-5), dplyr (>= 0.4.3)
 Date: 2016-01-27
 Authors@R: person("Luis", "Torgo", email = "ltorgo@dcc.fc.up.pt", role = c("aut", "cre"))
 URL: https://github.com/ltorgo/DMwR2
