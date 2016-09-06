@@ -12,7 +12,7 @@
 centralValue <- function(x, ws=NULL) {
     x <- unlist(x)  # because of dplyr structures not dropping (errors with dat[,i])
     if (is.numeric(x)) {
-        if (is.null(ws)) median(x,na.rm=T)
+        if (is.null(ws)) median(x,na.rm=TRUE)
         else if ((s <- sum(ws)) > 0) sum(x*(ws/s)) else NA
     } else {
         x <- as.factor(x)
@@ -216,30 +216,3 @@ ReScaling <- function(x,t.mn,t.mx,d.mn=min(x,na.rm=T),d.mx=max(x,na.rm=T)) {
 }
 
 
-
-# =====================================================================
-# Function to calculate some standard regression evaluation statistics
-# ---------------------------------------------------------------------
-# L. Torgo (2009)
-#
-# Examples:
-# s <- regr.eval(tr,ps,train.y=data[,'Y'])
-# s <- regr.eval(tr,ps,stats=c('mse','mae'))
-#
-regrEval <- function(trues,preds,
-                      metrics=if (is.null(train.y)) c('mae','mse','rmse','mape') else c('mae','mse','rmse','mape','nmse','nmae'),
-                      train.y=NULL)
-{
-  allSs <- c('mae','mse','rmse','mape','nmse','nmae')
-  if (any(c('nmse','nmad') %in% metrics) && is.null(train.y))
-    stop('regrEval:: train.y parameter not specified.',call.=F)
-  if (!all(metrics %in% allSs))
-    stop("regrEval:: don't know how to calculate -> ",call.=F,
-         paste(metrics[which(!(metrics %in% allSs))],collapse=','))
-  N <- length(trues)
-  sae <- sum(abs(trues-preds))
-  sse <- sum((trues-preds)^2)
-  r <- c(mae=sae/N,mse=sse/N,rmse=sqrt(sse/N),mape=sum(abs((trues-preds)/trues))/N)
-  if (!is.null(train.y)) r <- c(r,c(nmse=sse/sum((trues-mean(train.y))^2),nmae=sae/sum(abs(trues-mean(train.y)))))
-  return(r[metrics])
-}
