@@ -7,11 +7,11 @@ k-Nearest Neighbour Classification
 \description{
   This function provides a formula interface to the existing
   \code{knn()} function of package \code{class}. On top of this type of
-  convinient interface, the function also allows normalization of the
+  convinient interface, the function also allows standardization of the
   given data.
 }
 \usage{
-kNN(form, train, test, norm = TRUE, norm.stats = NULL, ...)
+kNN(form, train, test, stand = TRUE, stand.stats = NULL, ...)
 }
 
 \arguments{
@@ -26,13 +26,13 @@ kNN(form, train, test, norm = TRUE, norm.stats = NULL, ...)
   The data set for which we want to obtain the k-NN classification,
   i.e. the test set.
 }
-\item{norm}{
+\item{stand}{
   A boolean indicating whether the training data should be previously
   normalized before obtaining the k-NN predictions (defaults to TRUE).
 }
-\item{norm.stats}{
+\item{stand.stats}{
   This argument allows the user to supply the centrality and spread
-  statistics that will drive the normalization. If not supplied they
+  statistics that will drive the standardization. If not supplied they
   will default to the statistics used in the function \code{scale()}. If
   supplied they should be a list with two components, each beig a vector
   with as many positions as there are columns in the data set. The
@@ -48,11 +48,11 @@ kNN(form, train, test, norm = TRUE, norm.stats = NULL, ...)
   This function is essentially a convenience function that provides a
   formula-based interface to the already existing \code{knn()}
   function of package \code{class}. On top of this type of interface it
-  also incorporates some facilities in terms of normalization of the
+  also incorporates some facilities in terms of standardization of the
   data before the k-nearest neighbour classification algorithm is
   applied. This algorithm is based on the distances between
   observations, which are known to be very sensitive to different scales
-  of the variables and thus the usefulness of normalization.
+  of the variables and thus the usefulness of standardization.
 }
 \value{
   The return value is the same as in the \code{knn()}
@@ -78,14 +78,14 @@ idxs <- sample(1:nrow(iris),as.integer(0.7*nrow(iris)))
 trainIris <- iris[idxs,]
 testIris <- iris[-idxs,]
 
-## A 3-nearest neighbours model with no normalization
-nn3 <- kNN(Species ~ .,trainIris,testIris,norm=FALSE,k=3)
+## A 3-nearest neighbours model with no standardization
+nn3 <- kNN(Species ~ .,trainIris,testIris,stand=FALSE,k=3)
 
 ## The resulting confusion matrix
 table(testIris[,'Species'],nn3)
 
-## Now a 5-nearest neighbours model with normalization
-nn5 <- kNN(Species ~ .,trainIris,testIris,norm=TRUE,k=5)
+## Now a 5-nearest neighbours model with standardization
+nn5 <- kNN(Species ~ .,trainIris,testIris,stand=TRUE,k=5)
 
 ## The resulting confusion matrix
 table(testIris[,'Species'],nn5)
