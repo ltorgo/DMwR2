@@ -7,7 +7,7 @@ Description: Functions and data accompanying the second
 Version: 0.0.1
 Depends: R(>= 3.0), methods
 Imports: xts (>= 0.9-7), zoo (>= 1.7-10), class (>= 7.3-14), rpart (>= 4.1-10), quantmod (>= 0.4-5), dplyr (>= 0.4.3)
-Date: 2016-01-27
+Date: 2016-09-01
 Authors@R: person("Luis", "Torgo", email = "ltorgo@dcc.fc.up.pt", role = c("aut", "cre"))
 URL: https://github.com/ltorgo/DMwR2
 BugReports: https://github.com/ltorgo/DMwR2/issues
