@@ -56,7 +56,6 @@ export(
        SoftMax,
        LinearScaling,
        ReScaling,
-       regrEval,
 
        # classes.R file (the class constructors need to be exported)
        tradeRecord
