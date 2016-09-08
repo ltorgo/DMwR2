@@ -39,8 +39,8 @@ export(
        sigs.PR,
        trading.signals,
        tradingEvaluation,
-#       .addEq,.Eq,
-#       .addSt,.St,
+       .addEq,.Eq,
+       .addSt,.St,
        
        # trees.R file
        rpartXse,
