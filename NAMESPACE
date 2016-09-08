@@ -5,11 +5,12 @@ importFrom(rpart,rpart,prune.rpart)
 ##import(xts)
 importFrom(xts,as.xts,xts)
 ##import(quantmod)
-importFrom(quantmod,newTA,Delt,candleChart)
+importFrom(quantmod, newTA, Delt, candleChart, Cl, Hi, Lo, Op)
 importFrom(zoo,as.zoo,zoo,coredata,index)
 importFrom(class,knn)
 ##import(ROCR)
-
+importFrom("stats", "aggregate", "complete.cases", "dist", "median",
+             "model.frame", "model.response", "sd")
 
 
 exportClasses(
@@ -39,8 +40,8 @@ export(
        sigs.PR,
        trading.signals,
        tradingEvaluation,
-       .addEq,.Eq,
-       .addSt,.St,
+       .addEq,#.Eq,
+       .addSt,#.St,
        
        # trees.R file
        rpartXse,

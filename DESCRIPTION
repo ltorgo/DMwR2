@@ -1,9 +1,7 @@
 Package: DMwR2
 Type: Package
 Title: Functions and Data for the Second Edition of "Data Mining with R"
-Description: Functions and data accompanying the second 
-             edition of the book  "Data Mining with R, learning with case 
-             studies" by Luis Torgo, published by CRC Press
+Description: Functions and data accompanying the second edition of the book  "Data Mining with R, learning with case studies" by Luis Torgo, published by CRC Press.
 Version: 0.0.1
 Depends: R(>= 3.0), methods
 Imports: xts (>= 0.9-7), zoo (>= 1.7-10), class (>= 7.3-14), rpart (>= 4.1-10), quantmod (>= 0.4-5), dplyr (>= 0.4.3)

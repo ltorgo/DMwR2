@@ -10,5 +10,5 @@
           }
           \usage{sp500}
           \format{A \code{CSV} file with a data matrix.}
-          \source{Yahoo Finance \url{http://finance.yahoo.com/}  }
+          \source{Yahoo Finance  }
           \keyword{datasets}

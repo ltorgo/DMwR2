@@ -12,5 +12,5 @@
           \usage{GSPC}
           \format{A \code{xts} object with a data matrix with 10,022
           rows and 6 columns.}
-          \source{Yahoo Finance \url{http://finance.yahoo.com/}  }
+          \source{Yahoo Finance   }
           \keyword{datasets}

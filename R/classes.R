@@ -57,10 +57,12 @@ tradeRecord <- function(t,p,tc,c,pf,pp) {
 # --------------------------------------------------------------
 # plot
 #
-.Eq <- function(p) p[,'Equity']
-.St <- function(p) p[,'N.Stocks']
-.addEq <- quantmod::newTA(FUN = .Eq, col = 'red', legend = "Equity")
-.addSt <- quantmod::newTA(FUN = .St, col = 'green', legend = "N.Stocks")
+#.Eq <- function(p) p[,'Equity']
+#.St <- function(p) p[,'N.Stocks']
+#.addEq <- quantmod::newTA(FUN = .Eq, col = 'red', legend = "Equity")
+#.addSt <- quantmod::newTA(FUN = .St, col = 'green', legend = "N.Stocks")
+.addEq <- quantmod::newTA(FUN = function(p) p[,'Equity'], col = 'red', legend = "Equity")
+.addSt <- quantmod::newTA(FUN = function(p) p[,'N.Stocks'], col = 'green', legend = "N.Stocks")
 
 setMethod("plot", "tradeRecord",
   function(x,y,verbose=TRUE,...) {
