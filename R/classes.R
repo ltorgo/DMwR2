@@ -69,7 +69,7 @@ setMethod("plot", "tradeRecord",
       tr <- x
       market <- cbind(y,zoo::coredata(x@trading)[,c('Equity','N.Stocks')])
       quantmod::candleChart(market,
-                            TA=c(".addEq()" , ".addSt()"),
+                            TA=c(.addEq() , .addSt()),
 #                            TA=c(quantmod::newTA(FUN = function(p) p[,'Equity'], col = 'red', legend = "Equity") ,
 #                                 quantmod::newTA(FUN = function(p) p[,'N.Stocks'], col = 'green', legend = "N.Stocks")),
                   ,...)
