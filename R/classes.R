@@ -73,7 +73,7 @@ setMethod("plot", "tradeRecord",
                             TA=c(.addEq(),  .addSt()),
 #                            TA=c(quantmod::newTA(FUN = .Eq, col = 'red', legend = "Equity") ,
 #                                 quantmod::newTA(FUN = .St, col = 'green', legend = "N.Stocks")),
-                  ,...)
+                           ,...)
       if (verbose)
           cat('Rentability = ',100*(zoo::coredata(market[nrow(market),'Equity'])/
                                     zoo::coredata(market[1,'Equity'])-1),'%\n')
