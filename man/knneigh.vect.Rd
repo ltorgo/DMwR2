@@ -31,13 +31,12 @@ The number of neighbours.
   A vector.
 }
 \references{
- Acuna, E., and Members of the CASTLE group at UPR-Mayaguez, (2009).
-   \emph{dprep: Data preprocessing and visualization functions for classification}. R package version 2.1.
+Torgo, L. (2016) \emph{Data Mining using R: learning with case studies,
+  second edition},
+  Chapman & Hall/CRC (ISBN-13: 978-1482234893).
 
-  Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
-  CRC Press (ISBN: 9781439810187).
+  \url{http://ltorgo.github.io/DMwR2}  
 
-  \url{http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR}  
 }
 \author{ Luis Torgo \email{ltorgo@dcc.fc.up.pt} }
 \seealso{

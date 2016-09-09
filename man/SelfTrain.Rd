@@ -123,10 +123,12 @@ This function returns a classification model. This will be an object of
   the same class as the object returned by the base classification learned
   provided by the user.
 }
-\references{ Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
-  CRC Press (ISBN: 9781439810187).
+\references{
+Torgo, L. (2016) \emph{Data Mining using R: learning with case studies,
+  second edition},
+  Chapman & Hall/CRC (ISBN-13: 978-1482234893).
 
-  \url{http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR}
+  \url{http://ltorgo.github.io/DMwR2}  
 
   Yarowski, D. (1995). \emph{Unsupervised word sense disambiguation
   rivaling supervised methods}. In Proceedings of the 33rd Annual

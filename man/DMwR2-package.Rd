@@ -16,8 +16,11 @@ Luis Torgo
 Maintainer: Luis Torgo \email{ltorgo@dcc.fc.up.pt}
 }
 \references{
-Torgo, L. (2016) \emph{Data Mining using R: learning with case studies -
-2nd edition},
-CRC Press . \url{http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR}  
+Torgo, L. (2016) \emph{Data Mining using R: learning with case studies,
+  second edition},
+  Chapman & Hall/CRC (ISBN-13: 978-1482234893).
+
+  \url{http://ltorgo.github.io/DMwR2}  
+
 }
 \keyword{ package }

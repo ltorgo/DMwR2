@@ -59,10 +59,11 @@ NAs (x) and the neighbour k.
   A data frame without NA values
 }
 \references{
-Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
-  CRC Press (ISBN: 9781439810187).
+Torgo, L. (2016) \emph{Data Mining using R: learning with case studies,
+  second edition},
+  Chapman & Hall/CRC (ISBN-13: 978-1482234893).
 
-  \url{http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR}  
+  \url{http://ltorgo.github.io/DMwR2}  
 
 }
 \author{ Luis Torgo \email{ltorgo@dcc.fc.up.pt} }

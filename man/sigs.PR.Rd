@@ -39,10 +39,12 @@ A factor with the predicted signals (values should be 'b','s', or 'h')
   of Precision and Recall, respectively. The rows are the values for the
   three different events (sell, buy and sell+buy).
 }
-\references{ Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
-  CRC Press (ISBN: 9781439810187).
+\references{
+Torgo, L. (2016) \emph{Data Mining using R: learning with case studies,
+  second edition},
+  Chapman & Hall/CRC (ISBN-13: 978-1482234893).
 
-  \url{http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR}  
+  \url{http://ltorgo.github.io/DMwR2}  
 
 }
 \author{ Luis Torgo \email{ltorgo@dcc.fc.up.pt} }

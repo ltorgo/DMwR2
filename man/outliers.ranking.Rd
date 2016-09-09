@@ -156,10 +156,12 @@ outliers.ranking(data, test.data = NULL, method = "sizeDiff",
   clustering process. Finally, component \code{dist} contains the
   distance matrix used i nthe clustering process.
 }
-\references{ Torgo, L. (2010) \emph{Data Mining using R: learning with case studies},
-  CRC Press (ISBN: 9781439810187).
+\references{
+  Torgo, L. (2016) \emph{Data Mining using R: learning with case studies,
+  second edition},
+  Chapman & Hall/CRC (ISBN-13: 978-1482234893).
 
-  \url{http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR}  
+  \url{http://ltorgo.github.io/DMwR2}  
 
   Torgo, L. (2007) : \emph{Resource-bounded Fraud Detection}, 
 in Progress in Artificial Intelligence, 13th Portuguese Conference on Artificial Intelligence, EPIA 2007, Neves et. al (eds.). LNAI, Springer.
