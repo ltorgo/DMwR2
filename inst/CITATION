@@ -5,11 +5,11 @@ citEntry(entry="book",
          author = personList(as.person("L. Torgo")),
 	 publisher = "Chapman and Hall/CRC",
          year         = "2016", 
-         url          = "http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR",
+         url          = "http://ltorgo.github.io/DMwR2",
          textVersion =
          paste("Torgo, L. (2016). ",
-               "Data Mining with R, learning with case studies - 2nd Ed.",
+               "Data Mining with R, learning with case studies, 2nd edition",
 	       "Chapman and Hall/CRC. ",
-               "URL: http://www.dcc.fc.up.pt/~ltorgo/DataMiningWithR",
+               "URL: http://ltorgo.github.io/DMwR2",
                sep="")
          )

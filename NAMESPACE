@@ -10,7 +10,9 @@ importFrom(zoo,as.zoo,zoo,coredata,index)
 importFrom(class,knn)
 ##import(ROCR)
 importFrom("stats", "aggregate", "complete.cases", "dist", "median",
-             "model.frame", "model.response", "sd")
+             "model.frame", "model.response", "sd", "embed")
+importFrom("readr","read_csv")
+importFrom("DBI","dbGetQuery")
 
 exportClasses(
     tradeRecord
@@ -39,8 +41,10 @@ export(
        sigs.PR,
        trading.signals,
        tradingEvaluation,
-       .addEq,.Eq,
-       .addSt,.St,
+       #.addEq,
+       .Eq,
+       #.addSt,
+       .St,
        
        # trees.R file
        rpartXse,
@@ -56,12 +60,13 @@ export(
        SoftMax,
        LinearScaling,
        ReScaling,
+       createEmbedDS,
+       nrLinesFile,
+       sampleCSV,
+       sampleDBMS,
 
        # classes.R file (the class constructors need to be exported)
        tradeRecord
        )
 
 
-
-#S3method(plot,tradeRecord)
-#S3method(summary,tradeRecord)

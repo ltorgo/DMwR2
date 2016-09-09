@@ -59,8 +59,8 @@ tradeRecord <- function(t,p,tc,c,pf,pp) {
 #
 .Eq <- function(p) p[,'Equity']
 .St <- function(p) p[,'N.Stocks']
-.addEq <- quantmod::newTA(FUN = .Eq, col = 'red', legend = "Equity")
-.addSt <- quantmod::newTA(FUN = .St, col = 'green', legend = "N.Stocks")
+#.addEq <- quantmod::newTA(FUN = .Eq, col = 'red', legend = "Equity")
+#.addSt <- quantmod::newTA(FUN = .St, col = 'green', legend = "N.Stocks")
 
 #.addEq <- quantmod::newTA(FUN = function(p) p[,'Equity'], col = 'red', legend = "Equity")
 #.addSt <- quantmod::newTA(FUN = function(p) p[,'N.Stocks'], col = 'green', legend = "N.Stocks")
@@ -70,9 +70,10 @@ setMethod("plot", "tradeRecord",
       tr <- x
       market <- cbind(y,zoo::coredata(x@trading)[,c('Equity','N.Stocks')])
       quantmod::candleChart(market,
-                            TA=c(.addEq(),  .addSt()),
-#                            TA=c(quantmod::newTA(FUN = .Eq, col = 'red', legend = "Equity") ,
-#                                 quantmod::newTA(FUN = .St, col = 'green', legend = "N.Stocks")),
+#                            TA=c(.addEq(),  .addSt()),
+#                            TA="quantmod::newTA(FUN = .Eq, col = 'red', legend = "Equity")() ; quantmod::newTA(FUN = .St, col = 'green', legend = "N.Stocks")()",
+                            TA=c(quantmod::newTA(FUN = .Eq, col = 'red', legend = "Equity")() ,
+                                 quantmod::newTA(FUN = .St, col = 'green', legend = "N.Stocks")()),
                            ,...)
       if (verbose)
           cat('Rentability = ',100*(zoo::coredata(market[nrow(market),'Equity'])/

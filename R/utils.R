@@ -216,3 +216,87 @@ ReScaling <- function(x,t.mn,t.mx,d.mn=min(x,na.rm=T),d.mx=max(x,na.rm=T)) {
 }
 
 
+# ======================================================================
+# Function for creating an embeded data set from an univariate time series
+#
+#
+# 2016/09/09, Luis Torgo.
+# ----------------------------------------------------------------------
+#
+createEmbedDS <- function(s, emb=4) {
+    d <- dim(s)
+    if (!is.null(d) && d[2] > 1) stop("Only applicable to uni-variate time series")
+    if (emb < 2 || emb > length(s)) stop("Invalid embed size")
+    e <- embed(s,emb)
+    colnames(e) <- c("T",paste("T",1:(emb-1),sep="_"))
+    if (xts::is.xts(s)) return(xts::xts(e,index(s)[emb:length(s)])) else return(e)
+}
+
+
+# ======================================================================
+# Function for counting the nr of lines of a big CSV file
+#
+#
+# 2016/09/09, Luis Torgo.
+# ----------------------------------------------------------------------
+#
+nrLinesFile <- function(f) {
+    if (.Platform$OS.type == "unix") 
+        as.integer(strsplit(trimws(system(paste("wc -l",f),intern=TRUE)),
+                            " ")[[1]][1]) 
+    else 
+        stop("This function requires unix-based systems")
+}
+
+
+# ======================================================================
+# Function for drawing a random sample of lines from a big CSV file
+#
+#
+# 2016/09/09, Luis Torgo.
+# ----------------------------------------------------------------------
+#
+sampleCSV <- function(file, percORn, nrLines, header=TRUE, mxPerc=0.5) {
+    if (.Platform$OS.type != "unix") 
+        stop("This function requires unix-based systems")
+    
+    if (missing(nrLines)) nrLines <- nrLinesFile(file)
+    
+    if (percORn < 1)
+        if (percORn > mxPerc) 
+            stop("This function is not adequate for that big samples.")
+        else percORn <- as.integer(percORn*nrLines)
+    perc <- min(2*percORn/nrLines, mxPerc)
+    
+    system(paste0("perl -ne 'print if (rand() < ",perc,")' ",file,
+                  " > ",file,".tmp.csv"))
+    dt <- readr::read_csv(paste0(file,".tmp.csv"),col_names=header, n_max=percORn)
+    file.remove(paste0(file,".tmp.csv"))
+    if (nrow(dt) != percORn) 
+        warning(paste("Expecting",percORn,"rows, but got",nrow(dt)))
+    dt
+}
+
+
+# ======================================================================
+# Function for drawing a random sample of lines from a big database table
+#
+#
+# 2016/09/09, Luis Torgo.
+# ----------------------------------------------------------------------
+#
+sampleDBMS <- function(dbConn, tbl, percORn, mxPerc=0.5) {
+    nrRecords <- unlist(dbGetQuery(dbConn, paste("select count(*) from",tbl)))
+    
+    if (percORn < 1)
+        if (percORn > mxPerc) 
+            stop("This function is not adequate for that big samples.")
+        else percORn <- as.integer(percORn*nrRecords)
+    perc <- min(2*percORn/nrRecords, mxPerc)
+    
+    dt <- dbGetQuery(dbConn,paste("select * from (select * from",tbl,
+                                  "where rand() <= ",perc,") as t limit ",percORn))
+    if (nrow(dt) != percORn) 
+        warning(paste("Expecting",percORn,"rows, but got",nrow(dt)))
+    dt
+}
