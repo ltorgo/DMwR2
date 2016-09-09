@@ -23,16 +23,6 @@ centralValue <- function(x, ws=NULL) {
 
 
 # =====================================================
-# Small utility function to obtain the target (response)
-# variable values corresponding to a given formula and
-# data set.
-# =====================================================
-# Luis Torgo, Jan 2009
-# =====================================================
-resp <- function(formula,data) model.response(model.frame(formula, data))
-
-
-# =====================================================
 # Small utility function to obtain the number of the rows
 # in a data frame that have either a "large" number of 
 # unknown values.
@@ -138,23 +128,6 @@ knnImputation <- function(data,k=10,scale=TRUE,meth='weighAvg',distData=NULL) {
 
 
 
-# =====================================================
-# Function that inverts the effect of the scale function
-# =====================================================
-# Luis Torgo, Nov 2009
-# =====================================================
-unscale <- function(vals,norm.data,col.ids) {
-  cols <- if (missing(col.ids)) 1:NCOL(vals) else col.ids
-  if (length(cols) != NCOL(vals)) stop('Incorrect dimension of data to unscale.')
-  centers <- attr(norm.data,'scaled:center')[cols]
-  scales <- attr(norm.data,'scaled:scale')[cols]
-  unvals <- scale(vals,center=(-centers/scales),scale=1/scales)
-  attr(unvals,'scaled:center') <- attr(unvals,'scaled:scale') <- NULL
-  unvals
-}
-
-
-
 
 
 # ======================================================================
@@ -183,37 +156,6 @@ SoftMax <- function(x,lambda=2,avg=mean(x,na.rm=T),std=sd(x,na.rm=T))
   1/(1+exp(-vt))
 }
 
-
-
-# ======================================================================
-# Function for performing a linear scaling transformation
-#
-# This function ensures values between 0 to 1 (except for out of the sample
-# values, for that use SoftMax).
-#
-# 13/05/2002, Luis Torgo.
-# ----------------------------------------------------------------------
-# Example :
-# LinearScaling(algae[,'NO3'])
-# the following obtains the transformation just for one value
-# LinearScaling(45.23,mx=max(algae[,'NO3'],na.rm=T),mn=min(algae[,'NO3'],na.rm=T))
-#
-LinearScaling <- function(x,mx=max(x,na.rm=T),mn=min(x,na.rm=T))
-  (x-mn)/(mx-mn)
-
-
-# ======================================================================
-# Function performs a change of scale
-#
-# This function ensures values between a given scale
-#
-# 2/04/2003, Luis Torgo.
-# ----------------------------------------------------------------------
-#
-ReScaling <- function(x,t.mn,t.mx,d.mn=min(x,na.rm=T),d.mx=max(x,na.rm=T)) {
-  sc <- (t.mx-t.mn)/(d.mx-d.mn)
-  sc*x + t.mn - sc*d.mn
-}
 
 
 # ======================================================================

@@ -52,14 +52,10 @@ export(
 
        # utils.R file
        centralValue,
-       resp,
        manyNAs,
        centralImputation,
        knnImputation,
-       unscale,
        SoftMax,
-       LinearScaling,
-       ReScaling,
        createEmbedDS,
        nrLinesFile,
        sampleCSV,
