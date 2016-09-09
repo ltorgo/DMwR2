@@ -51,7 +51,7 @@ Torgo, L. (2016) \emph{Data Mining using R: learning with case studies,
 }
 \author{ Luis Torgo \email{ltorgo@dcc.fc.up.pt} }
 \seealso{
-\code{\link{scale}}, \code{\link{LinearScaling}}, \code{\link{ReScaling}}
+\code{\link{scale}}
 }
 \examples{
 ## A simple example with the iris data set
