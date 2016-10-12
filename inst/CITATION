@@ -1,4 +1,4 @@
-citHeader("To cite DMwR in publications use:")
+citHeader("To cite DMwR2 in publications use:")
 
 citEntry(entry="book",
          title = "Data Mining with R, learning with case studies, 2nd edition",
